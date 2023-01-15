@@ -1,5 +1,6 @@
 from pygame import *
 
+
 window = display.set_mode((1000,800))
 display.set_caption('PingPong')
 background = transform.scale(image.load('background.png'),(1000,800))
@@ -46,6 +47,15 @@ speed_y = 8
 
 finish = False
 game = True
+
+font.init()
+font = font.SysFont('Arial', 50)
+
+text1 = font.render('Player 1 Won!', True, (0,0,0))
+text2 = font.render('Player 2 Won!', True, (0,0,0))
+
+
+
 while game:
     for e in event.get():
         if e.type == QUIT:
@@ -62,6 +72,16 @@ while game:
             speed_x *= -1
         if ball.rect.y  < 0 or ball.rect.y > 700:
             speed_y *= -1
+
+
+        if ball.rect.x < 0:
+            window.blit(text2, (400, 350))
+            finish = True
+        if ball.rect.x > 1000:
+            window.blit(text1, (400, 350))
+            finish = True
+
+
 
         racket_first_player.reset()
         racket_second_player.reset()
